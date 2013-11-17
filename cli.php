@@ -5,10 +5,13 @@ date_default_timezone_set('UTC');
 use Phalcon\DI\FactoryDefault\CLI as CliDI,
     Phalcon\CLI\Console as ConsoleApp;
 
+defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__)));
+
 $di = new CliDI();
 
-defined('APPLICATION_PATH')
-    || define('APPLICATION_PATH', realpath(dirname(__FILE__)));
+require APPLICATION_PATH . '/config/config.php';
+$config = new \Phalcon\Config($settings);
+$di->set('config', $config);
 
 $loader = new \Phalcon\Loader();
 $loader->registerDirs(

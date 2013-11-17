@@ -1,6 +1,6 @@
 <?php
 
-class removeTask extends \Phalcon\CLI\Task
+class workerTask extends \Phalcon\CLI\Task
 {
 
    public function mainAction() {
@@ -13,7 +13,7 @@ class removeTask extends \Phalcon\CLI\Task
       $queue->choose('beantest');
       $queue->watch('beantest');
 
-      if ($queue->peekReady() !== false) {
+      while (1) {
 
          $job = $queue->reserve();
          $jobId = $job->getId();
@@ -21,10 +21,6 @@ class removeTask extends \Phalcon\CLI\Task
          $job->delete();
 
          echo 'Pulling job #'.$jobId.' with body "'.$jobBody.'" from the the beanstalkd queue.' . PHP_EOL;
-
-      } else {
-
-         echo 'No jobs left in the queue.' . PHP_EOL;
 
       }
 

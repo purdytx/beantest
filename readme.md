@@ -7,7 +7,7 @@ Tested against:
 
 * phalconphp 1.2.4
 * php 5.5
-* beanstalkd 1.4.6 (via aptitude)
+* beanstalkd 1.4.6 (via aptitude) and 1.9
 * ubuntu 12.04
 
 ## Installation
@@ -17,26 +17,37 @@ Tested against:
 	/var/www $ cd /var/www/beantest
 	/var/www/beantest $ sudo cp extras/beantest.conf /etc/init/
 
+## Configuration
+
+Set beanstalkd host and port in config/config.php.
+
 ## Usage
 
-This application assumes beanstalkd is running on 0.0.0.0:11300 and
-uses the tube 'beantest'.
+Add jobs to the queue:
 
-First, start the beantest worker to watch for new jobs and pull
-them.
+	/var/www/beantest $ php -f cli.php add
+
+An added message containing the job id will be written to the console.
+
+Jobs can be removed either manually or by using a worker.
+
+Remove manually:
+
+	/var/www/beantest $ php -f cli.php remove
+
+A removal message containing the job id and body will be written to 
+the console.
+
+To remove automatically, start the beantest worker:
 
 	/var/www/beantest $ sudo service beantest start
 
-Add jobs to the queue using the following:
-
-	/var/www/beantest $ php -f beantest.php add
-
-A message will be written to the console with the job id.  Check 
-logs/beantest.log for a message reporting that job pulled along with 
-the id and body.
+Check logs/beantest.log for a removal message containing the job id 
+and body.
 
 ## Additional
 
-The application beanstalk_console (https://github.com/ptrofimov/beanstalk_console)
-is an excellent web-based frontend to beanstalkd administration and can
-be used for additional testing and debugging.
+The application beanstalk_console 
+(https://github.com/ptrofimov/beanstalk_console) is an excellent 
+web-based frontend for beanstalkd administration and can be used 
+for additional testing and debugging.
