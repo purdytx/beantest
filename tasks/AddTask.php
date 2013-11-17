@@ -10,7 +10,7 @@ class addTask extends \Phalcon\CLI\Task
         'port' => '11300'
       ));
 
-      $queue->watch('sig-api');
+      $queue->watch('beantest');
 
       $jobId = $queue->put(date('m/d/Y h:i:s a', time()));
 

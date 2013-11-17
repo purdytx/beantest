@@ -10,7 +10,7 @@ class removeTask extends \Phalcon\CLI\Task
          'port' => '11300'
       ));
 
-      $queue->watch('sig-api');
+      $queue->watch('beantest');
 
       while (1) {
 
