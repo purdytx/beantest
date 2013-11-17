@@ -1,0 +1,10 @@
+.DS_Store
+.vagrant/
+.project
+.metadata
+/logs/*
+!/logs/empty
+*.tmp
+*.bak
+*.swp
+*~.nib
